@@ -1,0 +1,48 @@
+The direct detection of gravitational waves by the LIGO and Virgo
+observatories \citep{Abbott2016} has opened a new observational window
+onto strong-field gravity. Every detected event to date is consistent
+with the predictions of General Relativity (GR) to within measurement
+uncertainties \citep{Abbott2021tests}. Nevertheless, the extreme regimes
+probed by binary black hole mergers make gravitational waves a natural
+laboratory for testing the foundational assumptions of GR. Traditional
+tests rely on matched filtering against parametrized waveform families
+\citep{Yunes2019}. This approach is powerful when the deviation lies
+within the assumed template manifold, but it becomes computationally
+expensive in high-dimensional parameter spaces and cannot detect
+deviations that fall outside the template family. Machine-learning (ML)
+methods offer a complementary strategy: rather than matching against a
+specific template, they can learn discriminative features directly from
+data. Recent work has applied deep learning to gravitational-wave
+detection \citep{George2018, Gebhard2019}, parameter estimation
+\citep{Gabbard2020, Dax2021}, and glitch classification \citep{Zevin2017}.
+However, the application of ML to beyond-GR searches in real detector
+data has not been systematically characterized.
+
+This paper addresses four questions. First, can a hybrid neural-network
+classifier distinguish GR waveforms from systematically modified
+(beyond-GR) waveforms in real LIGO detector noise? Second, what is the
+minimum deviation strength---parameterized by the amplitude-modulation
+coefficient $\beta$---that this classifier can reliably detect? Third,
+does the classifier generalize to deviation types that were never
+presented during training? Fourth, how does classification performance
+depend on the signal-to-noise ratio of the injected signal, the deviation
+type, and the binary mass configuration?
+
+We make five contributions. We construct a controlled dataset of GR and
+beyond-GR waveforms using three independent deviation families: amplitude
+modulation, phase modulation, and frequency modulation. We train a hybrid
+classifier combining a 1D CNN with ten hand-crafted statistical features,
+and demonstrate that this architecture outperforms a pure CNN on noisy
+data. We characterize the detection threshold in real LIGO noise as a
+function of $\beta$ and SNR, finding a sigmoidal detectability curve with
+a threshold at $\beta \approx 0.25$ for the specific modulation form
+adopted. We test on real GW150914 strain as a template, in
+amplitude-controlled and amplitude-uncontrolled configurations. Finally,
+we demonstrate that at the small $\beta$ values typical of current
+parametrized-GR constraints, our method fails: this negative result
+quantifies the limits of ML-only beyond-GR searches. The remainder of
+this paper is organized as follows. Section~2 introduces the relevant
+gravitational-wave and machine-learning formalism. Section~3 describes
+our data generation, deviation injection, and model architecture.
+Section~4 presents the detectability studies. Section~5 discusses the
+physical interpretation and limitations. Section~6 concludes.

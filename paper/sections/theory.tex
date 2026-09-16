@@ -1,0 +1,130 @@
+\subsection{Gravitational Waves in General Relativity}
+
+In the weak-field limit of GR, metric perturbations $h_{\mu\nu}$ around
+a flat background satisfy the linearized Einstein equations. In the
+transverse-traceless gauge the two physical polarizations $h_+$ and
+$h_\times$ propagate as free waves, $\Box h_{+,\times} = 0$, where
+$\Box$ is the d'Alembertian. The detector strain response to a source
+in direction $\hat{n}$ is a linear combination
+$h(t) = F_+(\hat{n}, \psi)\, h_+(t) + F_\times(\hat{n}, \psi)\, h_\times(t)$,
+with antenna pattern functions $F_{+,\times}$ depending on the source
+sky position and polarization angle $\psi$.
+
+\subsection{Binary Inspiral and the Post-Newtonian Expansion}
+
+For a quasi-circular binary with component masses $m_1, m_2$, the
+inspiral phase is characterized by the chirp mass
+$\mathcal{M} = (m_1 m_2)^{3/5} / (m_1 + m_2)^{1/5}$ and the symmetric
+mass ratio $\eta = m_1 m_2 / (m_1 + m_2)^2$. The post-Newtonian (PN)
+expansion of the gravitational-wave phase is
+\begin{equation}
+    \Phi(f) = 2\pi f t_c - \phi_c
+    + \frac{3}{128 \eta} \left( \pi \mathcal{M} f \right)^{-5/3}
+    \sum_{k=0}^{N} \alpha_k \left( \pi \mathcal{M} f \right)^{k/3},
+\end{equation}
+where $t_c, \phi_c$ are the time and phase of coalescence and
+$\alpha_k$ are known PN coefficients. Deviations from GR can be
+parametrized by modifying one or more of these coefficients,
+$\alpha_k \rightarrow \alpha_k (1 + \delta \hat{\alpha}_k)$, which is
+the framework used in the standard parametrized tests of GR
+\citep{Yunes2019}.
+
+\subsection{Controlled Deviation Families}
+
+We introduce three controlled, non-physical deviations chosen to
+isolate different aspects of the waveform and to permit a systematic
+detectability study. These modifications are not proposed as specific
+beyond-GR models; they are controlled probes of the classifier's
+sensitivity.
+
+The amplitude modulation is
+\begin{equation}
+    h(t) \rightarrow h(t) \left[ 1 + \beta\, \tau(t)^2 \right],
+    \label{eq:amp_dev}
+\end{equation}
+where $\tau(t) \in [0, 1]$ is a normalized time coordinate increasing
+from inspiral to merger and $\beta$ is the dimensionless deviation
+strength. This modulation is localized near merger, preserves the
+phase evolution, and produces a specific shape change in the
+distribution of waveform samples. Throughout this paper, $\beta$
+should be understood as the coefficient of this specific quadratic
+form, not as a generic physical beyond-GR parameter.
+
+The phase modulation is applied to the analytic representation
+$h_a(t) = A(t) e^{i\phi(t)}$ as
+\begin{equation}
+    h_a(t) \rightarrow A(t) \exp\left[ i \left( \phi(t) + \beta\, \tau(t)^2 \right) \right],
+    \label{eq:phase_dev}
+\end{equation}
+preserving the amplitude envelope but altering the phase
+accumulation.
+
+The frequency modulation introduces a time-dependent phase
+\begin{equation}
+    \phi(t) \rightarrow \phi(t) + 2\pi \beta f_{\rm ref} \frac{\tau(t)^2}{2},
+    \label{eq:freq_dev}
+\end{equation}
+corresponding to an instantaneous frequency shift
+$\Delta f(t) = \beta f_{\rm ref} \tau(t)$, with $f_{\rm ref} = \SI{100}{Hz}$.
+
+\subsection{Signal-to-Noise Ratio}
+
+The optimal matched-filter signal-to-noise ratio for a waveform $h$
+in noise with one-sided power spectral density $S_n(f)$ is
+$\rho^2 = 4 \int_{f_{\rm low}}^{f_{\rm high}} |\tilde{h}(f)|^2 / S_n(f) \, df$.
+In our work we use a peak-normalized SNR: we set the peak value of
+the whitened signal to a target value $\rho_{\rm target}$ in units
+of the whitened noise standard deviation.
+
+\subsection{Whitening and Bandpass Filtering}
+
+For real LIGO data we estimate the noise PSD via Welch's method,
+$\hat{S}_n(f_k) = K^{-1} \sum_{i=1}^{K} |\tilde{x}_i(f_k)|^2$, where
+$\tilde{x}_i$ are Fourier transforms of $K$ overlapping segments. The
+whitened strain is
+$\tilde{x}_w(f) = \tilde{x}(f) / \sqrt{\hat{S}_n(f) f_s / 2}$ with
+$f_s$ the sampling frequency. We then apply a fourth-order Butterworth
+bandpass filter with cutoffs at \SI{20}{Hz} and \SI{500}{Hz}.
+
+\subsection{Amplitude Normalization}
+
+To prevent the classifier from exploiting an amplitude scale shortcut,
+we normalize every sample to unit standard deviation:
+$\tilde{x}(t) = (x(t) - \overline{x}) / \sigma_x$. After normalization
+both classes have zero mean and unit variance.
+
+\subsection{Machine-Learning Formalism}
+
+Let $\mathcal{D} = \{(x_i, y_i)\}_{i=1}^{N}$ denote a dataset with
+waveforms $x_i \in \mathbb{R}^{L}$, $L = 16384$ samples, and binary
+labels $y_i \in \{0, 1\}$. The classifier
+$f_\theta: \mathbb{R}^L \to [0, 1]$ is trained to minimize the binary
+cross-entropy loss
+\begin{equation}
+    \mathcal{L}(\theta) = -\frac{1}{N} \sum_{i=1}^{N}
+    \left[ y_i \log f_\theta(x_i)
+    + (1 - y_i) \log(1 - f_\theta(x_i)) \right].
+\end{equation}
+Gradients are computed by backpropagation and the parameters $\theta$
+are updated by Adam with bias-corrected first and second moment
+estimates.
+
+The hybrid architecture combines two feature representations. The CNN
+branch consists of three 1D convolutional blocks with strides $8$, $2$,
+$2$, followed by global average pooling to a 64-dimensional vector
+$z_{\rm cnn}$. The statistics branch computes ten hand-crafted features:
+mean absolute amplitude, standard deviation, maximum absolute
+amplitude, the $95$th, $99$th, $99.9$th and $99.99$th percentiles of
+$|x|$, the RMS, skewness and kurtosis. These are passed through a
+two-layer MLP to a 32-dimensional vector $z_{\rm stats}$. The two
+representations are concatenated, $z = [z_{\rm cnn} \,||\, z_{\rm stats}]$,
+and passed through a fully connected head producing a sigmoid output.
+The full model contains $31{,}697$ trainable parameters.
+
+\subsection{Evaluation Metrics}
+
+We report classification accuracy, the area under the receiver
+operating characteristic curve (ROC-AUC), and the F1 score. The
+\emph{unseen-type} test set consists exclusively of deviation types
+that were never presented during training and measures the model's
+ability to generalize to novel deviations.

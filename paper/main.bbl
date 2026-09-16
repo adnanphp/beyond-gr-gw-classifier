@@ -1,0 +1,62 @@
+\begin{thebibliography}{10}
+
+\bibitem{Abbott2016}
+B.~P. Abbott et~al.
+\newblock Observation of gravitational waves from a binary black hole merger.
+\newblock {\em Phys. Rev. Lett.}, 116:061102, 2016.
+
+\bibitem{Abbott2021tests}
+R.~Abbott et~al.
+\newblock Tests of general relativity with binary black holes from the second
+  ligo-virgo gravitational-wave transient catalog.
+\newblock {\em Phys. Rev. D}, 103:122002, 2021.
+
+\bibitem{Yunes2019}
+Nicolas Yunes, Kent Yagi, and Frans Pretorius.
+\newblock Theoretical physics implications of the binary black-hole mergers
+  {GW150914} and {GW151226}.
+\newblock {\em Phys. Rev. D}, 94:084002, 2016.
+
+\bibitem{George2018}
+Daniel George and E.~A. Huerta.
+\newblock Deep learning for real-time gravitational wave detection and
+  parameter estimation.
+\newblock {\em Phys. Lett. B}, 778:64--70, 2018.
+
+\bibitem{Gebhard2019}
+Timothy~D. Gebhard, Niki Kilbertus, Ian Harry, and Bernhard Sch{\"o}lkopf.
+\newblock Convolutional neural networks: A magic bullet for gravitational wave
+  detection?
+\newblock {\em Phys. Rev. D}, 100:063015, 2019.
+
+\bibitem{Gabbard2020}
+Hunter Gabbard, Chris Messenger, Ik~Siong Heng, Francesco Tonolini, and
+  Roderick Murray-Smith.
+\newblock Bayesian parameter estimation using conditional variational
+  autoencoders for gravitational wave astronomy.
+\newblock {\em Nature Physics}, 18:112--117, 2022.
+
+\bibitem{Dax2021}
+Maximilian Dax, Stephen~R. Green, Jonathan Gair, Jakob~H. Macke, Alessandra
+  Buonanno, and Bernhard Sch{\"o}lkopf.
+\newblock Real-time gravitational wave science with neural posterior
+  estimation.
+\newblock {\em Phys. Rev. Lett.}, 127:241103, 2021.
+
+\bibitem{Zevin2017}
+Michael Zevin et~al.
+\newblock Gravity spy: Integrating advanced ligo detector characterization,
+  machine learning, and citizen science.
+\newblock {\em Class. Quantum Grav.}, 34:064003, 2017.
+
+\bibitem{Khan2016}
+Sebastian Khan et~al.
+\newblock Frequency-domain gravitational waveform model for binary black hole
+  coalescences.
+\newblock {\em Phys. Rev. D}, 93:044007, 2016.
+
+\bibitem{psd_model}
+aligo zero-detuned high-power sensitivity curve.
+\newblock LIGO Document T0900288-v3, 2009.
+
+\end{thebibliography}

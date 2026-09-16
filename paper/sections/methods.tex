@@ -1,0 +1,64 @@
+\subsection{Data Generation Pipeline}
+
+Our pipeline has four stages. In the first stage, we generate
+time-domain waveforms using the IMRPhenomD phenomenological model
+\citep{Khan2016} as implemented in PyCBC. Each waveform is sampled at
+$\Delta t = 1/4096$\,s with a lower frequency cutoff of
+$f_{\rm low} = \SI{20}{Hz}$. For the injected studies we fix
+$m_1 = 30 M_\odot$ and $m_2 = 25 M_\odot$ unless otherwise stated. In
+the second stage, we apply one of the three modulations defined in
+Eqs.~\eqref{eq:amp_dev}--\eqref{eq:freq_dev} to the GR waveform, with
+$\beta$ drawn uniformly from one of several predefined ranges. In the
+third stage, we generate noise either from the analytic aLIGO
+Zero-Detuned-High-Power PSD \citep{psd_model} or from real H1 strain
+segments retrieved from the Gravitational-Wave Open Science Center
+(GWOSC). The signal is scaled by a single fixed factor, computed once
+from a GR reference waveform, and added to a random noise segment. In
+the fourth stage, every sample is whitened with the empirical PSD,
+bandpass filtered between $20$ and $\SI{500}{Hz}$, windowed to a
+$\SI{4}{s}$ region centered on the merger peak, amplitude-normalized
+to unit variance (for the amplitude-controlled studies), and clipped
+at $\pm 100\sigma$.
+
+\subsection{GW150914 Template Study}
+
+For the GW150914 study we retrieve the raw strain file
+\texttt{H-H1\_GWOSC\_4KHZ\_R1-1126259447-32.hdf5} from the GWOSC
+event API for GWTC-1-confident/GW150914/v3. The file contains
+$131{,}072$ samples at $\SI{4096}{Hz}$ (32 seconds), starting at
+GPS $1126259447$. We estimate the noise PSD using the first 4 seconds
+of the file with Welch's method (segment length $4096$ samples). The
+full 32-second segment is whitened with this PSD and bandpass filtered
+between $20$ and $\SI{500}{Hz}$. The GW150914 event at GPS
+$1126259462.4$ is located at sample $63078$ of the file. We extract a
+$\SI{4}{s}$ window centered on this position, giving the GR template
+$h_{\rm GR}(t)$. The modified template $h_{\rm mod}(t)$ is obtained
+by applying the amplitude modulation of Eq.~\eqref{eq:amp_dev}. For
+each training sample, we draw a random 4-second noise segment from
+the same file, excluding the event region, add a scaled version of
+either $h_{\rm GR}$ or $h_{\rm mod}$, normalize to unit variance, and
+clip. This produces controlled counterfactual waveforms from the
+GW150914-derived template; it does not modify the historical detector
+observation.
+
+\subsection{Dataset Splitting}
+
+We use a stratified split of $70\%$ training, $15\%$ validation and
+$15\%$ test\_seen, together with a separate held-out test\_unseen set.
+The test\_unseen set contains only the deviated class for one specific
+$\beta$ range (type C), which is excluded from training. This measures
+generalization to unseen deviation strengths.
+
+\subsection{Training Protocol}
+
+We use Adam with learning rate $3 \times 10^{-3}$, batch size $32$ or
+$64$, cosine annealing of the learning rate, gradient clipping at
+norm $1$, and early stopping on validation loss with patience
+$20$--$50$ epochs. Training and evaluation are performed on CPU using
+PyTorch. Each experiment takes one to five minutes.
+
+\subsection{Baseline Classifier}
+
+For comparison we train a class-balanced random forest with $300$ trees
+on nine of the ten hand-crafted features. This provides a non-neural
+baseline and allows us to identify the most informative features.

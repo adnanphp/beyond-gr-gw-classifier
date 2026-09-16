@@ -1,0 +1,79 @@
+\subsection{Interpretation of the Detectability Curve}
+
+The central result of this work is the sigmoidal detectability curve
+in Figure~\ref{fig:detectability_curve}. Above threshold,
+$\beta \gtrsim 0.4$, the classifier reliably distinguishes GR from
+amplitude-modulated waveforms with $\geq 95\%$ accuracy, even after
+amplitude normalization. Feature-importance analysis shows that the
+classifier uses tail percentiles of the amplitude distribution, which
+is consistent with amplitude modulation concentrating energy near
+merger. At threshold, $\beta \approx 0.25$, detection occurs with
+probability approximately $0.75$ and ROC-AUC approximately $0.87$; the
+tail statistics differ between classes by only a few percent,
+approaching the intrinsic noise floor. Below threshold,
+$\beta \lesssim 0.2$, detection fails completely.
+
+\subsection{Relationship Between $\beta$ and Physical Beyond-GR Parameters}
+
+The coefficient $\beta$ in Eqs.~\eqref{eq:amp_dev}--\eqref{eq:freq_dev}
+is the amplitude of a specific quadratic-in-time modulation, not a
+standard parametrized-GR coefficient. Direct comparison of our
+threshold to physical constraints therefore requires care. In the
+standard parametrized-test framework \citep{Yunes2019}, deviations are
+expressed as fractional shifts $\delta \hat{\alpha}_k$ of post-Newtonian
+phase coefficients, and current gravitational-wave observations bound
+these shifts to roughly $|\delta \hat{\alpha}_k| \lesssim 10^{-3}$--$10^{-2}$
+\citep{Abbott2021tests}. A controlled quadratic-in-time modulation of
+the type studied here does not map onto a single PN coefficient, and
+its effective $\beta$ differs from these bounds by a
+waveform-dependent factor of order unity. Our threshold
+$\beta_{\rm threshold} \approx 0.25$ should be read as a property of
+the quadratic modulation adopted here; extending the analysis to the
+standard parametrized-GR framework is a natural next step.
+
+\subsection{Why the Negative Result Matters}
+
+The failure at small $\beta$ is scientifically meaningful. It
+quantifies the limits of ML-only detection. A common assumption in
+ML-for-physics research is that neural networks will detect any signal
+that is present. Our results show this is not the case for controlled
+deviations in realistic noise. It also distinguishes ML detection
+from matched filtering: matched-filter searches achieve detection
+thresholds corresponding to $\rho_{\rm SNR} \sim 5$ by coherently
+integrating the signal across its frequency evolution, whereas our
+method operates on the whitened time-domain waveform directly. This
+gap in sensitivity motivates hybrid approaches in which ML is
+combined with physically motivated filtering.
+
+\subsection{Comparison with Prior Work}
+
+Prior ML work on gravitational waves has largely focused on detection
+of GR signals in noise \citep{George2018, Gebhard2019} or on parameter
+estimation \citep{Gabbard2020, Dax2021}. Beyond-GR searches with ML
+have focused on simulated signals at high SNR or on clean data. Our
+work extends this to a systematic study with real detector noise and
+a quantified threshold.
+
+\subsection{Limitations}
+
+Several limitations should be noted. Our deviations follow a specific
+quadratic-in-time form, $\propto \tau(t)^2$; other parametrizations
+may have different detectability thresholds. The GW150914 study uses
+a single template; generalization across event parameters has been
+tested only in the injected-waveform studies. We have not tested
+neutron-star or mixed binaries, where tidal effects provide additional
+deviation channels. Finally, our pipeline does not include the
+matched-filter step used in LIGO/Virgo analyses; adding it would
+substantially improve sensitivity but would blur the boundary between
+ML and classical detection methods.
+
+\subsection{Future Work}
+
+Several directions follow naturally. The classifier could be combined
+with matched-filter outputs by using the matched-filter SNR time
+series as input. The method could be applied to a population of
+simulated binary mergers spanning the full LIGO parameter space.
+Frequency-domain features such as spectrograms could be investigated
+as alternatives to the time-domain approach. Probabilistic models
+such as normalizing flows could be used to quantify classifier
+uncertainty.

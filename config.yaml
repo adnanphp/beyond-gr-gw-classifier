@@ -1,0 +1,103 @@
+seed: 42
+waveform:
+  approximant: IMRPhenomD
+  delta_t: 0.000244140625
+  f_lower: 20.0
+  duration: 4.0
+  n_samples: 16384
+  mass1_range:
+  - 20.0
+  - 50.0
+  mass2_range:
+  - 10.0
+  - 40.0
+  spin1z_range:
+  - -0.9
+  - 0.9
+  spin2z_range:
+  - -0.9
+  - 0.9
+  distance_range:
+  - 200.0
+  - 900.0
+  inclination_range:
+  - 0.0
+  - 3.14159
+  fixed_mass1: 30.0
+  fixed_mass2: 25.0
+deviation:
+  kind: amplitude
+  type: amplitude
+  train_types:
+  - A
+  - B
+  test_type: C
+  type_A:
+    pn_order: -1
+    beta_range:
+    - 0.3
+    - 0.35
+  type_B:
+    pn_order: -2
+    beta_range:
+    - 0.35
+    - 0.4
+  type_C:
+    pn_order: 1
+    beta_range:
+    - 0.35
+    - 0.4
+noise:
+  source: real
+  ifo: H1
+  gps_start: 1126259446
+  duration: 32
+  snr_range:
+  - 10.0
+  - 15.0
+preprocessing:
+  whiten: false
+  bandpass: true
+  bandpass_low: 20.0
+  bandpass_high: 500.0
+  bandpass_order: 4
+  normalize: fixed
+  fixed_scale: 1.0
+  clip_value: 100.0
+dataset:
+  n_per_class: 200
+  train_frac: 0.7
+  val_frac: 0.15
+  test_frac: 0.15
+  dtype: float32
+  train_mass_ratio_max: 3.0
+  test_mass_ratio_min: 3.0
+model:
+  name: cnn1d
+  dropout: 0.5
+training:
+  batch_size: 32
+  epochs: 300
+  lr: 0.003
+  optimizer: adam
+  loss: bce
+  early_stopping_patience: 50
+  device: auto
+evaluation:
+  snr_bins:
+  - 5
+  - 8
+  - 10
+  - 15
+  - 20
+  - 30
+  threshold: 0.5
+paths:
+  data_raw: data/raw
+  data_generated: data/generated
+  data_processed: data/processed
+  data_metadata: data/metadata
+  models: models
+  results_figures: results/figures
+  results_metrics: results/metrics
+  results_logs: results/logs

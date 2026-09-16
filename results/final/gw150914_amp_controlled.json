@@ -1,0 +1,74 @@
+{
+  "train": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "roc_auc": 1.0,
+    "confusion_matrix": [
+      [
+        140,
+        0
+      ],
+      [
+        0,
+        140
+      ]
+    ],
+    "n": 280
+  },
+  "val": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "roc_auc": 1.0,
+    "confusion_matrix": [
+      [
+        30,
+        0
+      ],
+      [
+        0,
+        30
+      ]
+    ],
+    "n": 60
+  },
+  "test_seen": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "roc_auc": 1.0,
+    "confusion_matrix": [
+      [
+        30,
+        0
+      ],
+      [
+        0,
+        30
+      ]
+    ],
+    "n": 60
+  },
+  "test_unseen": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "roc_auc": 1.0,
+    "confusion_matrix": [
+      [
+        30,
+        0
+      ],
+      [
+        0,
+        30
+      ]
+    ],
+    "n": 60
+  }
+}
