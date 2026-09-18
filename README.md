@@ -1,5 +1,7 @@
 # Beyond-GR Gravitational-Wave Classifier
 
+**Paper:** [arXiv:2609.19416](https://arxiv.org/abs/2609.19416)
+
 Deep learning detection of Beyond-General-Relativity deviations in
 gravitational-wave signals, using synthetic aLIGO-PSD noise and real
 LIGO H1 detector strain.
